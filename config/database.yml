@@ -1,17 +1,13 @@
 development:
-  adapter: postgresql
-  encoding: unicode
-  database: myapp_development
+  adapter: sqlite3
+  database: db/db_dev_db.sqlite3
   pool: 5
-  username: 
-  password:
+  timeout: 5000
 test:
-  adapter: postgresql
-  encoding: unicode
-  database: myapp_test
+  adapter: sqlite3
+  database: db/db_test_db.sqlite3
   pool: 5
-  username: 
-  password:
+  timeout: 5000
 production:
   adapter: postgresql
   encoding: unicode

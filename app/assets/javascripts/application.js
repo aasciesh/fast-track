@@ -17,15 +17,29 @@
 
 !(function($){
     $(document).ready(  function(){
-            $.get("/tree.txt", function(data){ findPopularRoute(data)});
+         processData('tree.txt');
+         $('.option').click(function(){
+          var dis = $(this);
+            processData(dis.attr('data-file-name'));
+            $('.option.highlighted').removeClass('highlighted');
+            dis.addClass('highlighted');
+         });  
     }
     );
+    function processData(file_name){
+        $.get("/"+file_name, function(data){ 
+          $("#show_pony").empty();
+          findPopularRoute(data);
+        });
+    }
     function findPopularRoute(data){
+        /* It assumes first line of data is extra info,
+            Data is well formed meaning each level is seperated by new line and each node is seperated by space
+            and each node value should be convertable to integer */
         /* Splitting into rows and going through each of them. lastNodes keeps track of last row nodes. */
         var rowSplit = data.split('\n'),
-            rowSplitLength = rowSplit.length,
             lastNodes = [];
-        for(var i = 0 ; i <  rowSplitLength; i++){
+        for(var i = 0 ; i <  rowSplit.length; i++){
            if (i == 0) continue ;
            var nodes = rowSplit[i].split(' '),
                nodesCount = nodes.length,
@@ -44,7 +58,7 @@
                   nodesWithPopularRoute.push([thisNode, thisNode, [[i,j]]]);
                }
                else if(!first && !last){
-                   var bestParentNode = chooseBestParentNode( lastNodes[j-1] , lastNodes[j]);
+                   var bestParentNode = lastNodes[j-1][1] >= lastNodes[j][1] ? lastNodes[j-1] : lastNodes[j];
                    var parentNodePath = bestParentNode[2].slice(0);
                    parentNodePath.push([i,j]);
                    /* Node information consists of it's value, sum of nodes of best route to it and point of nodes of best route*/
@@ -73,9 +87,6 @@
         })
         );
 
-    }
-    function chooseBestParentNode(first, second){
-        return first[1] >= second[1] ? first : second ;
     }
     function plotRow(nodes){
         var newRow = $("<div class='row'></div>");
