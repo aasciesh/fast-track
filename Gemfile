@@ -4,7 +4,6 @@ gem 'rails', '3.2.15'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-gem 'activerecord-sqlite3-adapter'
 
 gem 'pg'
 # Gems used only for assets and not required
