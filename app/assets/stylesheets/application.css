@@ -28,7 +28,7 @@ h1{
     height: 100%;
     background: black;
     border-top: 2px solid whitesmoke;
-    width: 2420px;
+    width: 2150px;
 }
 .row{
     width: 100%;
@@ -39,14 +39,23 @@ h1{
     color: white;
     text-align: center;
     padding: 3px;
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    font-size: 12px;
+    height: 15px;
 }
 .cell.highlighted{
     color: black;
     background: rgb(214, 221, 233);
     border-radius: 18px;
     border: 1px solid white;
+}
+.total-holder{
+    position: relative;
+    top: 70px;
+    left: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    color: whitesmoke;
 }
 
 

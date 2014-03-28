@@ -17,10 +17,10 @@
 
 !(function($){
     $(document).ready(  function(){
-            $.get("/tree.txt", function(data){ findPath(data)});
+            $.get("/tree.txt", function(data){ findPopularRoute(data)});
     }
     );
-    function findPath(data){
+    function findPopularRoute(data){
         /* Splitting into rows and going through each of them. lastNodes keeps track of last row nodes. */
         var rowSplit = data.split('\n'),
             rowSplitLength = rowSplit.length,
@@ -88,5 +88,6 @@
         $.each($('#show_pony>.row'), function(indx){
             $(this).find('.cell').eq(node[2][indx][1]).addClass('highlighted');
         });
+        $('#total').text(node[1]);
     }
 })($);
