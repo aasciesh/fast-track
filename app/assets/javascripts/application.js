@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require_tree .
 
-
 !(function($){
     $(document).ready(  function(){
          processData('tree.txt');
@@ -37,6 +36,7 @@
             Data is well formed meaning each level is seperated by new line and each node is seperated by space
             and each node value should be convertable to integer */
         /* Splitting into rows and going through each of them. lastNodes keeps track of last row nodes. */
+        var startTime = new Date();
         var rowSplit = data.split('\n'),
             lastNodes = [];
         for(var i = 0 ; i <  rowSplit.length; i++){
@@ -73,8 +73,8 @@
 
             lastNodes = nodesWithPopularRoute;
         }
-        /* So, each of last row nodes will have information about most popular route to themselves.
-        * Hence we select node with popular route which is also the best of all possible routes*/
+        console.log(new Date()-startTime);
+        
         console.log(Math.max.apply(undefined, lastNodes.map(function(itm){  return itm[1]})));
         console.log(JSON.stringify(
             lastNodes.reduce(function(previousValue, currentValue){
