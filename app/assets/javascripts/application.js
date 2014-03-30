@@ -39,15 +39,15 @@
         var startTime = new Date();
         var rowSplit = data.split('\n'),
             lastNodes = [];
-        for(var i = 0 ; i <  rowSplit.length; i++){
-           if (i == 0) continue ;
-           var nodes = rowSplit[i].split(' '),
+        rowSplit.shift();
+        rowSplit.forEach(function(row, i){
+            var nodes = row.split(' '),
                nodesCount = nodes.length,
                nodesWithPopularRoute = [];
             plotRow(nodes);
            /* Row split into nodes and going through each nodes */
-           for(var j = 0; j < nodesCount; j++){
-               var thisNode = parseInt(nodes[j]),
+           nodes.forEach(function(node, j){
+              var thisNode = parseInt(node),
                    first = j == 0,
                    last = j == nodesCount- 1;
                /* Node chooses best route from top to itself by choosing best route between two parents possible
@@ -69,10 +69,10 @@
                    parentNodePath.push([i,j]);
                    nodesWithPopularRoute.push([thisNode, thisNode + lastNodes[parentIndex][1], parentNodePath]);
                }
-           }
-
-            lastNodes = nodesWithPopularRoute;
-        }
+           });
+           lastNodes = nodesWithPopularRoute;
+        });
+        
         console.log(new Date()-startTime);
         
         console.log(Math.max.apply(undefined, lastNodes.map(function(itm){  return itm[1]})));
@@ -84,7 +84,7 @@
         highLightPopularRoute(
             lastNodes.reduce(function(previousValue, currentValue){
             return previousValue[1] >= currentValue[1] ? previousValue : currentValue;
-        })
+            })
         );
 
     }
